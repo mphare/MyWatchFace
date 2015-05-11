@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wear.mhare.mywatchface" >
+<manifest
+    package="com.wear.mhare.mywatchface"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-feature android:name="android.hardware.type.watch" />
+    <uses-feature android:name="android.hardware.type.watch"/>
+
+    <user-permission android:name="com.google.android.permission.PROVIDE_BACKGROUND"/>
+    <user-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.DeviceDefault" >
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@android:style/Theme.DeviceDefault">
+        <service
+            android:name=".WeatherWatchFaceService"
+            android:allowEmbedded="true"
+            android:label="Weather"
+            android:permission="android.permission.BIND_WALLPAPER">
+            <meta-data
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face"/>
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
+                android:resource="@drawable/preview"/>
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview_circular"
+                android:resource="@drawable/preview_circular"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <intent-filter>
+                <action android:name="anrdoid.service.wallpaper.WallpaperService"/>
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE"/>
             </intent-filter>
-        </activity>
+        </service>
     </application>
 
 </manifest>
